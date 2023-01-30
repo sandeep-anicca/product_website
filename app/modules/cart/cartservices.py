@@ -1,14 +1,11 @@
 import json
 from bson.objectid import ObjectId
 from flask import request
-
 from app.model.db import ConnectDB
-import logging as logging
+
 
 
 class CartService:
-
-        
     def add_cart(data,user_id):    
         connection = ConnectDB()
         mongodb_connection = connection.connect_db()
@@ -34,9 +31,9 @@ class CartService:
                 else:
                     return{"insufficient quantity"}    
             else:
-                return {"this product is not available"}  
+                return {"this product is not available"} 
         else:
-            return {"user not available"}        
+            return {"user not available"}
 
     def update_cart(cart_id,data,user_id):
         connection = ConnectDB()
@@ -104,8 +101,6 @@ class CartService:
                 products.update_one(req_product, newvalues)
             else:
                 return {"Product not found"}    
-            #print(required_cart['_id'])    
-            #cart.delete_one({"_id": ObjectId(required_cart['_id'])})
             return {"successfully removed this product"}    
         else:
             return{"cart not found"}

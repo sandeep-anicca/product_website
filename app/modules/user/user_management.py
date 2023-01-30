@@ -45,7 +45,6 @@ class UserService:
                 return {"wrong password"}
             else:
                 payload={
-                    #"user_id" :registered_user['_id'],
                     "password":registered_user['password'],
                     "email":registered_user['email'],
                     "user_role":registered_user['user_role']
@@ -76,5 +75,4 @@ class UserService:
         users = mongodb_connection.shop["users"]
         newvalues = { "$set": { "jwt_token":'' } }
         users.update_one(current_user, newvalues)
-        print(current_user)
         return {"status":"Successfully logged out","user":current_user}

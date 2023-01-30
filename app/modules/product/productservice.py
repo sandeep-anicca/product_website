@@ -1,9 +1,8 @@
 import json
 from bson.objectid import ObjectId
 from flask import request
-
 from app.model.db import ConnectDB
-import logging as logging
+
 
 
 class ProductService:
@@ -30,8 +29,11 @@ class ProductService:
         mongodb_connection = connection.connect_db()
         products = mongodb_connection.shop["products"]
         objInstance = ObjectId(data['product_id'])
-        documents = products.find({"_id":objInstance})
-        return {'product':documents}    
+        documents = products.find_one({"_id":objInstance})
+        if documents:
+            return {'Requested product':documents}   
+        else:
+            return {'Product not found'}     
 
     def update_product(product_id,data):          
         connection = ConnectDB()
